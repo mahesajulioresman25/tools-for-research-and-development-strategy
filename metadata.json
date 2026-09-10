@@ -1,0 +1,6 @@
+{
+  "name": "AlphaTrader - Quantitative Strategy & Market Alpha Simulator",
+  "description": "Platform analisa celah pasar (alpha discovery), simulasi data real-time klines & orderbook, pengujian algoritma eksekusi otomatis, serta optimasi strategi berbasis teknikal dan sentimen AI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

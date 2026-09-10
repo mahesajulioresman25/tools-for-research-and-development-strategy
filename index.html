@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="id" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          // Suppress benign Vite HMR websocket reconnection noise in sandboxed preview iframe
+          window.addEventListener('unhandledrejection', function(event) {
+            if (event && event.reason) {
+              var msg = String(event.reason.message || event.reason);
+              if (msg.includes('WebSocket') || msg.includes('vite') || msg.includes('ws://') || msg.includes('wss://')) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+              }
+            }
+          });
+
+          window.addEventListener('error', function(event) {
+            if (event && (event.message || event.error)) {
+              var msg = String(event.message || (event.error && event.error.message) || '');
+              if (msg.includes('WebSocket') || msg.includes('vite') || msg.includes('ws://') || msg.includes('wss://')) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+              }
+            }
+          }, true);
+
+          var originalFetch = window.fetch;
+          var desc = Object.getOwnPropertyDescriptor(window, 'fetch') ||
+                     (window.constructor && window.constructor.prototype && Object.getOwnPropertyDescriptor(window.constructor.prototype, 'fetch'));
+          if (!desc || !desc.writable || !desc.set) {
+            var _fetch = originalFetch;
+            try {
+              Object.defineProperty(window, 'fetch', {
+                get: function() { return _fetch; },
+                set: function(fn) { _fetch = fn; },
+                configurable: true,
+                enumerable: true
+              });
+            } catch (e) {
+              // ignore
+            }
+          }
+        } catch (err) {
+          // ignore
+        }
+      })();
+    </script>
+    <title>AlphaTrader - Quantitative Strategy & Market Alpha Simulator</title>
+    <meta name="description" content="Platform analisa celah pasar (alpha discovery), simulasi data real-time klines & orderbook, pengujian algoritma eksekusi otomatis, serta optimasi strategi berbasis teknikal dan sentimen AI." />
+    <meta property="og:title" content="AlphaTrader - Quantitative Strategy & Market Alpha Simulator" />
+    <meta property="og:description" content="Platform analisa celah pasar (alpha discovery), simulasi data real-time klines & orderbook, pengujian algoritma eksekusi otomatis, serta optimasi strategi berbasis teknikal dan sentimen AI." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#0A0B0E] text-[#D1D5DB] antialiased font-sans selection:bg-[#2563EB]/30 selection:text-[#3B82F6] min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
